@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useAxiosFetch from "../../../hooks/useAxiosFetch";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
-import img from '../../../assets/home/girl.jpg'
+import img from '../../../assets/home/trainer.jpg'
 
 const PopularInstructor = () => {
   const [instructors, setInstructors] = useState([]);
@@ -21,13 +21,12 @@ const PopularInstructor = () => {
     <div className="my-28">
       <div className="mb-20">
         <h1 className="text-5xl font-bold text-center text-secondary">
-          Our <span className="text-black dark:text-white">Amazing</span>{" "}
-          Teachers
+           <span className="text-black dark:text-white">Our</span>{" "}
+          Instructor
         </h1>
         <div className="w-[40%] text-center mx-auto my-4">
           <p className="text-gray-500">
-            Explore our Popular Classes . Here is some popular classes based on
-            How many student enrolled
+           Description
           </p>
         </div>
       </div>
