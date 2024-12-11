@@ -1,0 +1,211 @@
+# Query: http://localhost:5000
+# ContextLines: 1
+
+49 results - 41 files
+
+~/.local/lib/python3.10/site-packages/langchain_community/chat_models/mlflow.py:
+  42              chat = ChatMlflow(
+  43:                 target_uri="http://localhost:5000",
+  44                  endpoint="chat",
+
+~/.local/lib/python3.10/site-packages/langchain_community/embeddings/mlflow.py:
+  26              embeddings = MlflowEmbeddings(
+  27:                 target_uri="http://localhost:5000",
+  28                  endpoint="embeddings",
+
+~/.local/lib/python3.10/site-packages/langchain_community/llms/koboldai.py:
+   28  
+   29:         kobold = KoboldApiLLM(endpoint="http://localhost:5000")
+   30          result = kobold("Write a story about a dragon.")
+
+  148  
+  149:                 llm = KoboldApiLLM(endpoint="http://localhost:5000")
+  150                  llm.invoke("Write a story about dragons.")
+
+~/.local/lib/python3.10/site-packages/langchain_community/llms/mlflow.py:
+  22              completions = Mlflow(
+  23:                 target_uri="http://localhost:5000",
+  24                  endpoint="test",
+
+~/.local/lib/python3.10/site-packages/langchain_community/llms/textgen.py:
+  200                  from langchain_community.llms import TextGen
+  201:                 llm = TextGen(model_url="http://localhost:5000")
+  202                  llm.invoke("Write a story about llamas.")
+
+  246                  from langchain_community.llms import TextGen
+  247:                 llm = TextGen(model_url="http://localhost:5000")
+  248                  llm.invoke("Write a story about llamas.")
+
+~/.npm/_cacache/content-v2/sha512/85/ed/8c191427e76db9a4b4336d8c557ecb029f5b1cd6e067cb79f7f91929443aa413e2839116d7cf59dd67ed3fb0db9f649334863f3af5a35e720650bdadf079:
+  1: ⟪ 35855 characters skipped ⟫ite(req.url.slice(1) + '\\n');\n    setTimeout(res.end.bind(res), 3000);\n});\n\nserver.listen(5000, function () {\n    var pending = 20;\n    for (var i = 0; i < 20; i++) {\n        var r = request('http://localhost:5000/' + i);\n        r.pipe(process.stdout, { end: false });\n        r.on('end', function () {\n            if (--pending === 0) server.close();\n        });\n    }\n});\n\nprocess.stdout.setMaxListeners(0); // turn off annoying warnings\n```\n\n```\nsubstack : example $ time node many_request.js \n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n\nreal    0m12.423s\nuser    0m0.424s\nsys 0m0.048s\n```\n\nSurprising? YES. This is pretty much never what you want, particularly if you\nhave a lot of streaming http API endpoints. Your code will just *HANG* once the\nconnection pool fills up and it won't start working again until some connections\ndie for whatever reason. I have encountered this so many times in production\ninstances and it is SO hard to track down reliably.\n\nCompare to using hyperquest, which is exactly the same code but it takes 3\nseconds instead of 12 to finish because it's not completely self-crippled like\nrequest and core http.request.\n\n``` js\nvar http = require('http');\nvar hyperquest = require('hyperquest');\n\nvar server = http.createServer(function (req, res) {\n    res.write(req.url.slice(1) + '\\n');\n    setTimeout(res.end.bind(res), 3000);\n});\n\nserver.listen(5000, function () {\n    var pending = 20;\n    for (var i = 0; i < 20; i++) {\n        var r = hyperquest('http://localhost:5000/' + i);\n        r.pipe(process.stdout, { end: false });\n        r.on('end', function () {\n            if (--pending === 0) server.close();\n        });\n    }\n});\n\nprocess.stdout.setMaxListeners(0); // turn off annoying warnings\n```\n```\n$ time node many_hyperquest.js \n0\n1\n2\n3\n4\n5\n6\n8\n9\n7\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n\nreal    0m3.284s\nuser    0m0.288s\nsys 0m0.060s\n```\n\nSo the other thing is, the justification I've heard supporting this horrible\nlimit-of-5 pooling behavior is \"performance\". The first example which has been\ntuned for \"performance\" takes 12 seconds. The second example that removes these\n\"performance\" enhancements takes 3. Some performance improvement INDEED!\n\n# methods\n\n``` js\nvar hyperquest = require('hyperquest');\n```\n\n## var req = hyperquest(uri, opts={}, cb)\n\nCreate an outgoing http request to `uri` or `opts.uri`.\nYou need not pass any arguments here since there are setter methods documented
+
+~/.npm/_cacache/content-v2/sha512/91/a4/4f60b963fc1d82c2352b4c109f4c4c60ece8476961d3470e85f9d602dd1b9f7288b1b918ce905fa72c1299f71442288ee1b76fe9ce130524911df9cc566a:
+  1: ⟪ 41776 characters skipped ⟫ppeteer\n * @flow\n */\nimport { screenshot } from '../utils/puppeteer.js';\n\nit('should position the popper on the right', async () => {\n  const page = await browser.newPage();\n  await page.goto('http://localhost:5000/basic.html');\n\n  expect(await screenshot(page)).toMatchImageSnapshot();\n});\n```\n\nYou can find the complete\n[`jest-puppeteer` documentation here](https://github.com/smooth-code/jest-puppeteer#api),\nand the\n[`jest-image-snapshot` documentation here](https://github.com/americanexpress/jest-image-snapshot#%EF%B8%8F-api).\n","_id":"@popperjs/core@2.0.0-next.10","dist":{"shasum":"72bd9ebb9f37c67ce4d70febd9f35e5217eb2bc2","integrity":"sha512-N+6heuPHFucavjJBY2ZQc66wYacf1ehOBdqvdz3r7kqduh6XbphLKSVwzdM2MWo8Jj+aBcir8BhTvcer6hRI6w==","tarball":"https://registry.npmjs.org/@popperjs/core/-/core-2.0.0-next.10.tgz","fileCount":148,"unpackedSize":877192,"npm-signature":"-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJd4o08CRA9TVsSAnZWagAAIYgP/i0Lqy3HArk7XkXmMUmX\nemuo8AejrOI6aSUVPZORROttNAdtz0zDHouX8gbQjNJfyaYeAff67i6rBXWr\n8oO3gKnPrFQ+xY3Reujeyc7AO5/dfAbAn1QnXatRKtbY+grHJctYWCId49/F\nOvo0e+h2Ix6XJUppc4i⟪ 12362 characters skipped ⟫ppeteer\n * @flow\n */\nimport { screenshot } from '../utils/puppeteer.js';\n\nit('should position the popper on the right', async () => {\n  const page = await browser.newPage();\n  await page.goto('http://localhost:5000/basic.html');\n\n  expect(await screenshot(page)).toMatchImageSnapshot();\n});\n```\n\nYou can find the complete\n[`jest-puppeteer` documentation here](https://github.com/smooth-code/jest-puppeteer#api),\nand the\n[`jest-image-snapshot` documentation here](https://github.com/americanexpress/jest-image-snapshot#%EF%B8%8F-api).\n","licenseText":"The MIT License (MIT)\n\nCopyright (c) 2019 Federico Zivolo\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of\nthis software and associated documentation files (the \"Software\"), to deal in\nthe Software without restriction, including without limitation the rights to\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of\nthe Software, and to permit persons to whom the Software is furnished to do so,\nsubject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software⟪ 13433 characters skipped ⟫ppeteer\n * @flow\n */\nimport { screenshot } from '../utils/puppeteer.js';\n\nit('should position the popper on the right', async () => {\n  const page = await browser.newPage();\n  await page.goto('http://localhost:5000/basic.html');\n\n  expect(await screenshot(page)).toMatchImageSnapshot();\n});\n```\n\nYou can find the complete\n[`jest-puppeteer` documentation here](https://github.com/smooth-code/jest-puppeteer#api),\nand the\n[`jest-image-snapshot` documentation here](https://github.com/americanexpress/jest-image-snapshot#%EF%B8%8F-api).\n","licenseText":"The MIT License (MIT)\n\nCopyright (c) 2019 Federico Zivolo\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of\nthis software and associated documentation files (the \"Software\"), to deal in\nthe Software without restriction, including without limitation the rights to\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of\nthe Software, and to permit persons to whom the Software is furnished to do so,\nsubject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software
+
+~/.vscode-server/data/User/History/-2754d02/IR5d:
+  1: REACT_APP_API_URL=http://localhost:5000/api
+
+~/.vscode-server/data/User/History/-2754d02/qLDm:
+  1: REACT_APP_API_URL=http://localhost:5000/api
+
+~/.vscode-server/data/User/History/-2754d02/xjYv:
+  1: REACT_APP_API_URL=http://localhost:5000/api
+
+~/.vscode-server/data/User/History/-34635d99/ek1X:
+  5  GOOGLE_CLIENT_SECRET=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
+  6: GOOGLE_REDIRECT_URI=http://localhost:5000/api/auth/google/callback
+
+~/.vscode-server/data/User/History/-34635d99/MH1B:
+  5  GOOGLE_CLIENT_SECRET=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
+  6: GOOGLE_REDIRECT_URI=http://localhost:5000/api/auth/google/callback
+
+~/.vscode-server/data/User/History/-34635d99/MmuC:
+  5  GOOGLE_CLIENT_SECRET=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
+  6: GOOGLE_REDIRECT_URI=http://localhost:5000/api/auth/google/callback
+
+~/.vscode-server/data/User/History/-34635d99/xLDi:
+  5  GOOGLE_CLIENT_SECRET=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
+  6: GOOGLE_REDIRECT_URI=http://localhost:5000/api/auth/google/callback
+  7  
+
+~/.vscode-server/data/User/History/-34635d99/yrgf:
+  5  GOOGLE_CLIENT_SECRET=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
+  6: GOOGLE_REDIRECT_URI=http://localhost:5000/api/auth/google/callback
+  7  
+
+~/.vscode-server/data/User/History/-57a2d817/4K2I.js:
+  17      try {
+  18:       const response = await axios.get('http://localhost:5000/api/auth/user', {
+  19          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+
+  36      try {
+  37:       await axios.post('http://localhost:5000/api/announcements', {
+  38          message: announcement,
+
+~/.vscode-server/data/User/History/-70cea52a/kvm5.md:
+  85  - **Frontend**: Access the application by navigating to `http://localhost:3000` in your web browser.
+  86: - **Backend**: The server runs on `http://localhost:5000` by default and handles all API requests.
+  87  
+
+~/.vscode-server/data/User/History/-76a2fc05/R0ua.md:
+  76  - **Frontend**: Access the application by navigating to `http://localhost:3000` in your web browser.
+  77: - **Backend**: The server runs on `http://localhost:5000` by default and handles all API requests.
+  78  
+
+~/.vscode-server/data/User/History/1a488d5b/oWoY:
+  1: REACT_APP_API_URL=http://localhost:5000/api
+
+~/.vscode-server/data/User/History/1a488d5b/Sywl:
+  1: REACT_APP_API_URL=http://localhost:5000/api
+
+~/.vscode-server/data/User/History/1c9d8fb3/OlVQ.js:
+  13      try {
+  14:       await axios.post('http://localhost:5000/api/birthdays', { name, email, phone, dob });
+  15        setName('');
+
+~/.vscode-server/data/User/History/5457554c/0wfU.js:
+  7      try {
+  8:       const response = await axios.get('http://localhost:5000/api/auth/google-auth-url');
+  9        console.log('Received auth URL:', response.data.url);
+
+~/.vscode-server/data/User/History/5457554c/dqwi.js:
+  7      try {
+  8:       const response = await axios.get('http://localhost:5000/api/auth/google-auth-url');
+  9        window.location.href = response.data.url;
+
+~/.vscode-server/data/User/History/5457554c/egHj.js:
+  7      try {
+  8:       const response = await axios.get('http://localhost:5000/api/auth/google');
+  9        window.location.href = response.data.authUrl;
+
+~/.vscode-server/data/User/History/5457554c/JQIT.js:
+  5    const handleSync = () => {
+  6:     window.location.href = 'http://localhost:5000/api/auth/google';
+  7    };
+
+~/.vscode-server/data/User/History/6a71defe/k6Gp.js:
+  10        try {
+  11:         const res = await axios.get('http://localhost:5000/api/birthdays');
+  12          setBirthdays(res.data);
+
+~/.vscode-server/extensions/ms-azuretools.vscode-docker-1.29.3/dist/extension.bundle.js:
+  1  /*! For license information please see extension.bundle.js.LICENSE.txt */
+  2: ⟪ 3348677 characters skipped ⟫seUrl);this.authenticationProviders.set(r,n)}return this.authenticationProviders.get(r)}async addTrackedRegistry(){const e={registryPrompt:o.l10n.t("Registry URL"),registryPromptPlaceholder:o.l10n.t("http://localhost:5000"),usernamePrompt:o.l10n.t("Registry Username"),secretPrompt:o.l10n.t("Registry Password or Personal Access Token"),connectedRegistries:this.authenticationProviders?[...this.authenticationProviders.keys()]:[]},r=new b.RegistryWizard(e,[new v.GenericRegistryV2WizardPromptStep,new N.RegistryWizardUsernamePromptStep,new N.RegistryWizardSecretPromptStep]);if(await r.prompt(),!e.registryUri)throw new Error("Registry URL is invalid");const n=e.registryUri.toString().toLowerCase(),p=this.extensionContext.globalState.get(_,[]);p.push(n),await this.extensionContext.globalState.update(_,p);const P=new g.BasicOAuthProvider(this.extensionContext.globalState,this.extensionContext.secrets,e.registryUri);await P.storeBasicCredentials({username:e.username||"",secret:e.secret||""}),this.authenticationProviders.set(n,P)}async removeTrackedRegistry(e){var r;const n=e.baseUrl.toString().toLowerCase(),o=this.extensionContext.globalState.get(_,[]),p=o.findIndex((e=>e===n));-1!==p&&(o.sp
+
+~/projects/AnnounceMate/README.md:
+  85  - **Frontend**: Access the application by navigating to `http://localhost:3000` in your web browser.
+  86: - **Backend**: The server runs on `http://localhost:5000` by default and handles all API requests.
+  87  
+
+~/projects/AnnounceMate/backend/README.md:
+  85  - **Frontend**: Access the application by navigating to `http://localhost:3000` in your web browser.
+  86: - **Backend**: The server runs on `http://localhost:5000` by default and handles all API requests.
+  87  
+
+~/projects/AnnounceMate/frontend/README.md:
+  85  - **Frontend**: Access the application by navigating to `http://localhost:3000` in your web browser.
+  86: - **Backend**: The server runs on `http://localhost:5000` by default and handles all API requests.
+  87  
+
+~/projects/birthday-reminder/backend/.env:
+  5  GOOGLE_CLIENT_SECRET=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
+  6: GOOGLE_REDIRECT_URI=http://localhost:5000/api/auth/google/callback
+  7  
+
+~/projects/birthday-reminder/frontend/src/components/AddBirthdayForm.js:
+  13      try {
+  14:       await axios.post('http://localhost:5000/api/birthdays', { name, email, phone, dob });
+  15        setName('');
+
+~/projects/birthday-reminder/frontend/src/components/BirthdayList.js:
+  10        try {
+  11:         const res = await axios.get('http://localhost:5000/api/birthdays');
+  12          setBirthdays(res.data);
+
+~/projects/birthday-reminder/frontend/src/components/SyncButton.js:
+  7      try {
+  8:       const response = await axios.get('http://localhost:5000/api/auth/google-auth-url');
+  9        console.log('Received auth URL:', response.data.url);
+
+~/projects/purelifestyleyoga2.0/frontend/src/components/Social/GoogleLogin.jsx:
+  25                      if (user.email && user.displayName) {
+  26:                         return axios.post('https://ply-server.onrender.com/new-user', userImp)
+  27                              .then(() => {
+
+~/projects/purelifestyleyoga2.0/frontend/src/hooks/useAxiosFetch.jsx:
+  5    const axiosInstance = axios.create({
+  6:     baseURL: 'https://ply-server.onrender.com', // TODO : Replace with base URL
+  7    });
+
+~/projects/purelifestyleyoga2.0/frontend/src/hooks/useAxiosSecure.jsx:
+  10    const axiosSecure = axios.create({
+  11:     baseURL: 'https://ply-server.onrender.com',
+  12    });
+
+~/projects/purelifestyleyoga2.0/frontend/src/pages/Dashboard/Student/Payment/CheckoutPayment.jsx:
+  5  const CheckoutPayment = ({ price , cartItm }) => {
+  6:     const URL =`https://ply-server.onrender.com/payment-info?${cartItm&&`classId=${cartItm}`}`
+  7      console.log(URL)
+
+~/projects/purelifestyleyoga2.0/frontend/src/pages/user/Register.jsx:
+  42                                  return axios
+  43:                                     .post('https://ply-server.onrender.com/new-user', userImp)
+  44                                      .then(() => {
+
+~/projects/purelifestyleyoga2.0/frontend/src/routes/router.jsx:
+   59                  element: <SingleClass/>,
+   60:                 loader: ({ params }) => fetch(`https://ply-server.onrender.com/class/${params.id}`),
+   61              }
+
+   80                  element: <AdminRoute><UpdateUser /></AdminRoute>,
+   81:                 loader: ({ params }) => fetch(`https://ply-server.onrender.com/users/${params.id}`),
+   82              },
+
+  106                  element: <InstructorRoute><UpdateClass /></InstructorRoute>,
+  107:                 loader: ({ params }) => fetch(`https://ply-server.onrender.com/class/${params.id}`),
+  108              },
+
+~/projects/purelifestyleyoga2.0/frontend/src/utilities/providers/AuthProvider.jsx:
+  67  
+  68:                 axios.post('https://ply-server.onrender.com/api/set-token', { email: user.email, name: user.displayName })
+  69                      .then(data => {
