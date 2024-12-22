@@ -3,7 +3,7 @@ import { useTitle } from '../../hooks/useTitle';
 import ShowInstructors from './All/ShowInstructors';
 
 const Instructors = () => {
-    useTitle('Instructors | Yoga Master - Unleashed Your Inner Self');
+    useTitle('Instructors |Pure Lifestyle Yoga - Your Path to Pure Bliss');
     return (
         <section>
             <ShowInstructors />

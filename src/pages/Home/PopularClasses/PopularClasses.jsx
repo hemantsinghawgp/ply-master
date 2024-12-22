@@ -17,12 +17,12 @@ const PopularClasses = () => {
             <div className="">
                 <h1 className='text-5xl font-bold text-center'>Our <span className='text-secondary'>Packages</span> </h1>
                 <div className="w-[40%] text-center mx-auto my-4">
-                    <p className='text-gray-500'>Explore our Popular Classes . Here is some popular classes based  on How many student enrolled</p>
+                    <p className='text-gray-500'>Sub-text</p>
                 </div>
             </div>
 
 
-        <div className="grid  md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
             {
                 classes.map((item, index) => <Card id={item._id} key={index} availableSeats={item.availableSeats} price={item.price} name={item.name} image={item.image} totalEnrolled={item.totalEnrolled} />)
             }

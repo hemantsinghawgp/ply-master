@@ -5,6 +5,8 @@ import PopularClasses from './PopularClasses/PopularClasses';
 import PopularInstructor from './PopularTeacher/PopularInstructor';
 import HeroContainer from './Hero/HeroContainer';
 import Gallary from './Gallary/Gallary';
+import ServicesOffered from './ServicesOffered/ServicesOffered';
+import UpcomingRetreats from './UpcomingEvents/UpcomingEvents';
 
 const Home = () => {
     useTitle('Home | Pure Lifestyle Yoga - Your Path to Pure Bliss');
@@ -13,6 +15,8 @@ const Home = () => {
             <HeroContainer />
             <div className="max-w-screen-xl mx-auto">
             <Gallary/>
+            <UpcomingRetreats />
+            <ServicesOffered />
                 <PopularClasses />
                 
                 <PopularInstructor />

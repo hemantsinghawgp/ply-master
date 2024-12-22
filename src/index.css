@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet"');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body { 
-    font-family: 'Manrope', sans-serif;
+    font-family: 'Inter', sans-serif;
 }
 
 /* 
@@ -33,3 +34,39 @@ body {
   background: #b68bdcf1;
   transition: 1s;
 }
+
+
+.swiper-pagination-bullet {
+  background: #ddd; /* Default dot color */
+  opacity: 0.8;
+  width: 12px;
+  height: 12px;
+  margin: 0 5px;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background: #ff5722; /* Highlight color for active dot */
+  opacity: 1;
+  transform: scale(1.2); /* Slight enlargement of the active dot */
+}
+
+.bg-primary {
+  background-color:  #653818; /* Replace with your primary color */
+}
+
+.bg-secondary {
+  background-color: #B3632B /* Replace with your secondary color */
+}
+
+.text-secondary {
+  color:  #653818; 
+}
+
+.bg-secondary:hover {
+  background-color: #73401C; /* Slightly darker shade for hover */
+}
+
+
+
+

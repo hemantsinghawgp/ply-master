@@ -144,19 +144,7 @@ const AddClass = () => {
                         />
                     </div>
                 </div>
-                <div className="mb-6">
-                    <label className="block text-gray-700 font-bold mb-2" htmlFor="price">
-                        Youtube Link
-                    </label>
-                    <p className='text-[12px] my-2 mt-2 text-secondary'>Only youtube videos are support</p>
-                    <input
-                        required
-                        className="w-full border-secondary px-4 py-2 border rounded-md focus:outline-none focus:ring-blue-500"
-                        type="text"
-                        placeholder='Your course intro video link'
-                        name='videoLink'
-                    />
-                </div>
+                
                 <div className="mb-6">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="price">
                         Description About your course 

@@ -1,260 +1,186 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaBars } from 'react-icons/fa';
-import { FcElectricalSensor } from 'react-icons/fc';
-import Swal from 'sweetalert2';
-import Switch from '@mui/material/Switch';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../utilities/providers/AuthProvider';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import LogoImage from '../../assets/home/ply-logo.png'; 
+
 const navLinks = [
-    {
-        name: 'Home',
-        route: '/'
-    },
-    {
-        name: 'Instructors',
-        route: '/instructors'
-    },
+    { name: 'Home', route: '/' },
+    { name: 'About Us', route: '/about' },
     {
         name: 'Classes',
-        route: '/classes'
-    }
-];
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#ff0000', // Set the primary color
-        },
-        secondary: {
-            main: '#00ff00', // Set the secondary color
-        },
+        subLinks: [
+            { name: 'Schedule', route: '/classes/schedule' },
+            { name: 'Packages', route: '/classes/packages' },
+        ],
     },
-});
+    { name: 'Upcoming Events', route: '/events' },
+    { name: 'Contact Us', route: '/contact' },
+];
 
 const NavBar = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
     const { user, logout } = useContext(AuthContext);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isHome, setIsHome] = useState(false);
-    const [isLogin, setIsLogin] = useState(false);
-    const [scrollPosition, setScrollPosition] = useState(0);
-    const [navBg, setNavBg] = useState('bg-[#15151580]');
-    const [isFixed, setIsFixed] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [activeDropdown, setActiveDropdown] = useState(null);
 
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
-    const handelLogout = e => {
-        e.preventDefault();
-        Swal.fire({
-            title: 'Are you sure to logout ?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Logout.!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                logout()
-                    .then(() => {
-                        Swal.fire(
-                            'Logged out!',
-                            'You are logged out successful.',
-                            'success'
-                        )
-                    })
-                    .catch(err => {
-                        Swal.fire(
-                            'Error!',
-                            err.message,
-                            'error'
-                        )
-                    })
-            }
-        })
-    }
-
-
-    useEffect(() => {
-        const darkClass = 'dark';
-        const root = window.document.documentElement;
-
-        if (isDarkMode) {
-            root.classList.add(darkClass);
-        } else {
-            root.classList.remove(darkClass);
-        }
-    }, [isDarkMode]);
-    useEffect(() => {
-        setIsHome(location.pathname === '/');
-        setIsLogin(location.pathname === '/login');
-        setIsFixed(location.pathname === '/register' || location.pathname === '/login');
-    }, [location]);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            const currentPosition = window.pageYOffset;
-            setScrollPosition(currentPosition);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, []);
-
-    useEffect(() => {
-        if (scrollPosition > 100) {
-            if (isHome) {
-                setNavBg('bg-white backdrop-filter backdrop-blur-xl bg-opacity-0 dark:bg-black dark:text-white text-black');
-            }
-            else {
-                setNavBg('bg-white dark:bg-black dark:text-white text-black');
-            }
-        } else {
-            // setNavBg(`dark:text-white ${isHome ? 'text-white bg-transparent' : 'text-black dark:text-white dark:bg-black'}`);
-            setNavBg(`${isHome || location.pathname === '/' ? 'bg-transparent' : 'bg-white dark:bg-black'} dark:text-white text-white`);
-
-        }
-    }, [scrollPosition]);
-
+    const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+    const toggleDropdown = (name) =>
+        setActiveDropdown(activeDropdown === name ? null : name);
 
     return (
         <motion.nav
-            className={`${isHome ? navBg : 'bg-white dark:bg-black backdrop-blur-2xl'}  ${isFixed ? 'static' : 'fixed'} top-0 transition-colors duration-500 ease-in-out  w-full z-10`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            className="fixed top-0 w-full bg-white shadow-lg z-50"
+            initial={{ y: -50 }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.3 }}
         >
-            <div className="lg:w-[95%] mx-auto sm:px-6 lg:px-6">
-                <div className="flex px-4 items-center justify-between py-4">
-                    {/* Logo */}
-                    <div onClick={() => navigate('/')} className="flex-shrink-0 cursor-pointer pl-7 md:p-0 flex items-center">
-                        <div className={``}>
-                            <h1 className='text-2xl font-Cinzel  inline-flex gap-3  items-center font-bold'>Pure Lifestyle Yoga </h1>
-                            <p className='font-bold text-[13px]  '>Your Path to Pure Bliss</p>
-                        </div>
-                    </div>
-
-                    {/* Mobile Menu Icon */}
-                    <div className="md:hidden flex items-center">
-                        <button
-                            onClick={toggleMobileMenu}
-                            type="button"
-                            className="text-gray-300 hover:text-white focus:outline-none"
-                        >
-                            <FaBars className="h-6  hover:text-primary w-6" />
-                        </button>
-                    </div>
-
-                    {/* Navigation Links */}
-                    <div className="hidden  text-black dark:text-white md:block">
-                        <div className="flex">
-                            <ul className="ml-10 flex items-center space-x-4 pr-4">
-                                {navLinks.map((link) => (
-                                    <li key={link.route}>
-                                        <NavLink
-                                            className={({ isActive }) => `font-bold ${isActive ? 'text-secondary' : `${navBg.includes('bg-transparent') ? 'text-white' : 'text-black dark:text-white'}`} hover:text-secondary duration-300`}
-                                            to={link.route}
-                                            style={{ whiteSpace: 'nowrap' }}
-                                        >
-                                            {link.name}
-                                        </NavLink>
-
-
-                                    </li>
-                                ))}
-                                {
-                                    user ? null : isLogin ? <li>
-                                        <NavLink
-                                            to='/register'
-                                            className={({ isActive }) => `font-bold ${isActive ? 'text-secondary' : `${navBg.includes('bg-transparent') ? 'text-white' : 'text-black dark:text-white'}`} hover:text-secondary duration-300`}
-                                        >Register</NavLink></li> : <li>
-                                        <NavLink
-                                            to='/login'
-                                            className={({ isActive }) => `font-bold ${isActive ? 'text-secondary' : `${navBg.includes('bg-transparent') ? 'text-white' : 'text-black dark:text-white'}`} hover:text-secondary duration-300`}
-                                        >Login</NavLink></li>
-                                }
-                                {
-                                    user && <li><NavLink to='/dashboard' className={({ isActive }) => `font-bold ${isActive ? 'text-secondary' : `${navBg.includes('bg-transparent') ? 'text-white' : 'text-black dark:text-white'}`} hover:text-secondary duration-300`}>Dashboard</NavLink></li>
-                                }
-                                {
-                                    user && <li>
-                                        <img src={user?.photoURL} className='h-[40px] rounded-full w-[40px]' alt="" />
-                                    </li>
-                                }
-                                {
-                                    user && <li><NavLink className='font-bold px-3 py-2 bg-secondary text-white rounded-xl' onClick={handelLogout}>Logout</NavLink></li>
-                                }
-                                <li>
-                                    <ThemeProvider theme={theme}>
-                                        <div className="flex flex-col justify-center items-center">
-                                            <Switch onChange={() => setIsDarkMode(!isDarkMode)} />
-                                            <h1 className='text-[8px]'>Light/Dark</h1>
-                                        </div>
-                                    </ThemeProvider>
-                                </li>
-                            </ul>
-
-                        </div>
+            <div className="container mx-auto flex items-center justify-between px-6 py-4">
+                {/* Logo */}
+                <div
+                    onClick={() => navigate('/')}
+                    className="flex items-center cursor-pointer space-x-3"
+                >
+                    <img
+                        src={LogoImage} 
+                        alt="Logo"
+                        className="h-10 w-10"
+                    />
+                    <div>
+                        <h1 className="text-2xl font-bold text-gray-800">Pure Lifestyle Yoga</h1>
+                        <p className="text-sm font-medium text-gray-500">Your Path to Pure Bliss</p>
                     </div>
                 </div>
 
-                {/* Mobile Menu */}
-                <AnimatePresence>
-                    {isMobileMenuOpen && (
-                        <motion.div
-                            className="md:hidden mt-2 w-full bg-black"
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.5 }}
+                {/* Desktop Navigation */}
+                <div className="hidden md:flex items-center space-x-6">
+                    {navLinks.map((link) =>
+                        link.subLinks ? (
+                            <div key={link.name} className="relative group">
+                                <button
+                                    className="text-gray-800 hover:text-primary font-medium"
+                                    onClick={() => toggleDropdown(link.name)}
+                                >
+                                    {link.name}
+                                </button>
+                                {activeDropdown === link.name && (
+                                    <div className="absolute left-0 top-10 bg-white shadow-md rounded-md z-10">
+                                        {link.subLinks.map((subLink) => (
+                                            <NavLink
+                                                key={subLink.route}
+                                                to={subLink.route}
+                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            >
+                                                {subLink.name}
+                                            </NavLink>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <NavLink
+                                key={link.route}
+                                to={link.route}
+                                className="text-gray-800 hover:text-primary font-medium"
+                            >
+                                {link.name}
+                            </NavLink>
+                        )
+                    )}
+                    {user ? (
+                        <>
+                            <NavLink
+                                to="/dashboard"
+                                className="text-gray-800 hover:text-primary font-medium"
+                            >
+                                Dashboard
+                            </NavLink>
+                            <button
+                                onClick={logout}
+                                className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
+                            >
+                                Logout
+                            </button>
+                        </>
+                    ) : (
+                        <NavLink
+                            to="/login"
+                            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark"
                         >
-                            {navLinks.map((link) => (
-                                <li key={link.route}>
-                                    <NavLink
-                                        className={({ isActive }) => `font-bold ${isActive ? 'text-secondary' : `${navBg.includes('bg-transparent') ? 'text-white' : 'text-black dark:text-white'}`} hover:text-secondary duration-300`}
-                                        to={link.route}
-                                        style={{ whiteSpace: 'nowrap' }}
+                            Login
+                        </NavLink>
+                    )}
+                </div>
+
+                {/* Mobile Menu Toggle */}
+                <div className="md:hidden">
+                    <button onClick={toggleMobileMenu} className="text-gray-800">
+                        {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile Navigation */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        className="md:hidden bg-white shadow-lg"
+                        initial={{ height: 0 }}
+                        animate={{ height: 'auto' }}
+                        exit={{ height: 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        {navLinks.map((link) =>
+                            link.subLinks ? (
+                                <div key={link.name}>
+                                    <button
+                                        className="w-full text-left px-4 py-2 text-gray-800 font-medium hover:bg-gray-100"
+                                        onClick={() => toggleDropdown(link.name)}
                                     >
                                         {link.name}
-                                    </NavLink>
-
-
-                                </li>
-                            ))}
-                            {
-                                user ? null : isLogin ? <li>
-                                    <NavLink
-                                        to='/register'
-                                        className={({ isActive }) => `font-bold ${isActive ? 'text-secondary' : `${navBg.includes('bg-transparent') ? 'text-white' : 'text-black dark:text-white'}`} hover:text-secondary duration-300`}
-                                    >Register</NavLink></li> : <li>
-                                    <NavLink
-                                        to='/login'
-                                        className={({ isActive }) => `font-bold ${isActive ? 'text-secondary' : `${navBg.includes('bg-transparent') ? 'text-white' : 'text-black dark:text-white'}`} hover:text-secondary duration-300`}
-                                    >Login</NavLink></li>
-                            }
-                            {
-                                user && <li><NavLink to='/dashboard' className={({ isActive }) => `font-bold ${isActive ? 'text-secondary' : `${navBg.includes('bg-transparent') ? 'text-white' : 'text-black dark:text-white'}`} hover:text-secondary duration-300`}>Dashboard</NavLink></li>
-                            }
-                            {
-                                user && <li>
-                                    <img src={user?.photoURL} className='h-[40px] rounded-full w-[40px]' alt="" />
-                                </li>
-                            }
-                            {
-                                user && <li><NavLink className='font-bold px-3 py-2 bg-secondary text-white rounded-xl' onClick={handelLogout}>Logout</NavLink></li>
-                            }
-
-                            {/* Add more mobile menu links as needed */}
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
+                                    </button>
+                                    {activeDropdown === link.name && (
+                                        <div className="bg-gray-50">
+                                            {link.subLinks.map((subLink) => (
+                                                <NavLink
+                                                    key={subLink.route}
+                                                    to={subLink.route}
+                                                    className="block px-6 py-2 text-gray-800 hover:bg-gray-200"
+                                                >
+                                                    {subLink.name}
+                                                </NavLink>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
+                                <NavLink
+                                    key={link.route}
+                                    to={link.route}
+                                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                                >
+                                    {link.name}
+                                </NavLink>
+                            )
+                        )}
+                        {user ? (
+                            <button
+                                onClick={logout}
+                                className="w-full px-4 py-2 bg-primary text-white rounded-md mt-2"
+                            >
+                                Logout
+                            </button>
+                        ) : (
+                            <NavLink
+                                to="/login"
+                                className="w-full px-4 py-2 bg-primary text-white rounded-md mt-2 text-center block"
+                            >
+                                Login
+                            </NavLink>
+                        )}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.nav>
     );
 };

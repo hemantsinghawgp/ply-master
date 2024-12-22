@@ -47,14 +47,25 @@ const Card = ({ name, image, availableSeats, price, totalEnrolled, id: itmId }) 
 
   return (
     <motion.div
-      className="shadow-lg rounded-lg p-3 flex flex-col justify-between border border-secondary overflow-hidden m-4"
+      className="relative p-4 m-4"
+      style={{
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        height: '100%',
+        width: '100%',
+        borderRadius: '20px',
+        boxShadow: `rgba(0, 0, 0, 0.05) 0px 0.796192px 2.38858px -0.625px,
+                     rgba(0, 0, 0, 0.05) 0px 2.41451px 7.24352px -1.25px,
+                     rgba(0, 0, 0, 0.05) 0px 6.38265px 19.148px -1.875px,
+                     rgba(0, 0, 0, 0.05) 0px 20px 60px -2.5px`,
+        opacity: 1,
+      }}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.2 }}
     >
       <motion.img
-        loading='lazy'
-        className="h-48 w-full object-cover"
+        loading="lazy"
+        className="h-48 w-full object-cover rounded-t-lg"
         src={image}
         alt={name}
         initial={{ opacity: 0 }}
@@ -63,7 +74,7 @@ const Card = ({ name, image, availableSeats, price, totalEnrolled, id: itmId }) 
       />
       <div className="p-4">
         <motion.h2
-          className="text-xl font-semibold mb-2 dark:text-white"
+          className="text-xl font-semibold mb-2 dark:text-black"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}

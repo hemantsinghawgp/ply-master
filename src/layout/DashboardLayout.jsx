@@ -31,10 +31,11 @@ const instructorNavItem = [
 ];
 const student = [
     { to: "/dashboard/student-cp", icon: <BiHomeAlt className="text-2xl" />, label: "Dashboard" },
-    { to: "/dashboard/enrolled-class", icon: <SiGoogleclassroom className="text-2xl" />, label: "My Enroll" },
-    { to: "/dashboard/my-selected", icon: <BiSelectMultiple className="text-2xl" />, label: "My Selected" },
+    { to: "/dashboard/enrolled-class", icon: <SiGoogleclassroom className="text-2xl" />, label: "Enrolled Classes" },
+    { to: "/dashboard/my-selected", icon: <BiSelectMultiple className="text-2xl" />, label: "Cart" },
     { to: "/dashboard/my-payments", icon: <MdPayments className="text-2xl" />, label: "Payment History" },
-    { to: "/dashboard/apply-instructor", icon: <SiInstructure className="text-2xl" />, label: "Apply for Instructor" },
+    
+    
 ];
 const lastMenuItems = [
     { to: "/", icon: <BiHomeAlt className="text-2xl" />, label: "Main Home" },

@@ -10,7 +10,7 @@ import { HiOutlineLocationMarker } from 'react-icons/hi';
 import GoogleLogin from '../../components/Social/GoogleLogin';
 
 const Register = () => {
-    useTitle('Register | Yoga Master - Unleashed Your Inner Self');
+    useTitle('Register | Pure Lifestyle Yoga - Your Path to Pure Bliss');
     const { signUp, error, setError, updateUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const {
@@ -69,7 +69,7 @@ const Register = () => {
     return (
         <div className="flex justify-center items-center pt-14 bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-md">
-                <h2 className="text-3xl font-bold text-center mb-6">Please Register</h2>
+                <h2 className="text-3xl font-bold text-center mb-6"> Register as a Member</h2>
                 {error && <p className="text-red-500 text-center mb-4">{error}</p>}
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex items-center gap-5">

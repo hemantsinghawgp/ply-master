@@ -1,76 +1,65 @@
-import React, { useEffect, useState } from "react";
-import useAxiosFetch from "../../../hooks/useAxiosFetch";
+import React from "react";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
-import img from '../../../assets/home/trainer.jpg'
+import img from '../../../assets/home/trainer.jpg';
 
 const PopularInstructor = () => {
-  const [instructors, setInstructors] = useState([]);
-  console.log(instructors);
-  const axiosFetch = useAxiosFetch();
-
-  useEffect(() => {
-    axiosFetch
-      .get("/popular-instructors")
-      .then((data) => {
-        setInstructors(data.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
   return (
     <div className="my-28">
-      <div className="mb-20">
-        <h1 className="text-5xl font-bold text-center text-secondary">
-           <span className="text-black dark:text-white">Our</span>{" "}
-          Instructor
+      {/* Section Heading */}
+      <div className="mb-20 text-center">
+        <h1 className="text-5xl font-bold text-secondary">
+          <span className="text-black dark:text-white">Our</span> Instructor
         </h1>
         <div className="w-[40%] text-center mx-auto my-4">
           <p className="text-gray-500">
-           Description
+            Meet our highly skilled instructor dedicated to guiding you on your yoga journey.
           </p>
         </div>
       </div>
 
-      {
-        instructors ? <><div className="grid mb-28 md:grid-cols-2 lg:grid-cols-4 mx-auto w-[90%] gap-6">
-        {instructors?.map((instructor, i) => (
-          <div
-            key={i}
-            className="flex dark:text-white hover:-translate-y-2 duration-200 cursor-pointer flex-col shadow-md py-8 px-10 md:px-8 rounded-md"
-          >
-            <div className="flex flex-col gap-6 md:gap-8">
-              <img
-                className="rounded-full border-4 border-gray-300 h-24 w-24 mx-auto"
-                src={instructor?.instructor?.photoUrl || `${img}`}
-                alt=""
-              />
-              <div className="flex flex-col text-center">
-                <div className="font-medium text-lg dark:text-white text-gray-800">
-                  {instructor?.instructor?.name}
-                </div>
-                <div className="text-gray-500  whitespace-nowrap">
-                  Instructor
-                </div>
-                <div className="text-gray-500 mb-4 whitespace-nowrap">
-                  Total Students : {instructor?.totalEnrolled}
-                </div>
-                <div className="flex flex-row items-center justify-center gap-4 text-gray-800 my-auto text-2xl mx-auto md:mx-0">
-                  <a className="hover:cursor-pointer text-secondary duration-300">
-                    <FaLinkedin />
-                  </a>
-                  <a className="hover:cursor-pointer text-secondary duration-300">
-                    <FaFacebook />
-                  </a>
-                  <a className="hover:cursor-pointer text-secondary duration-300">
-                    <FaInstagram />
-                  </a>
-                </div>
-              </div>
-            </div>
+      {/* Static Instructor Card */}
+      <div className="flex justify-center">
+        <div
+          className="max-w-3xl w-full bg-white dark:bg-gray-800 shadow-lg rounded-2xl overflow-hidden p-8 text-center"
+          style={{
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            boxShadow: `rgba(0, 0, 0, 0.05) 0px 0.796192px 2.38858px -0.625px,
+                        rgba(0, 0, 0, 0.05) 0px 2.41451px 7.24352px -1.25px,
+                        rgba(0, 0, 0, 0.05) 0px 6.38265px 19.148px -1.875px,
+                        rgba(0, 0, 0, 0.05) 0px 20px 60px -2.5px`,
+          }}
+        >
+          {/* Instructor Photo */}
+          <img
+            className="rounded-full border-4 border-gray-300 h-48 w-48 mx-auto mb-6"
+            src={img}
+            alt="Instructor"
+          />
+
+          {/* Instructor Info */}
+          <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">
+           Samresh Keshyap
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-4">Yoga Instructor</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            Samresh has over 10 years of experience in yoga, specializing in helping individuals achieve
+            mental and physical wellness. He has trained over 500 students globally.
+          </p>
+
+          {/* Social Media Links */}
+          <div className="flex justify-center mt-6 space-x-6">
+            <a href="#" className="text-secondary text-2xl hover:opacity-80">
+              <FaLinkedin />
+            </a>
+            <a href="#" className="text-secondary text-2xl hover:opacity-80">
+              <FaFacebook />
+            </a>
+            <a href="#" className="text-secondary text-2xl hover:opacity-80">
+              <FaInstagram />
+            </a>
           </div>
-        ))} 
-      </div></> : <p>No Instructor Available</p>
-      }
+        </div>
+      </div>
     </div>
   );
 };

@@ -5,7 +5,7 @@ import DashboardNavigate from '../../routes/DashboardNavigate';
 import { HashLoader } from 'react-spinners';
 const Dashboard = () => {
 
-    useTitle("Dashboard | Yoga Master - Unleashed Your Inner Self");
+    useTitle("Dashboard | Pure Lifestyle Yoga - Your Path to Pure Bliss");
 
     const { currentUser, isLoading } = useUser();
 

@@ -1,45 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/effect-creative";
-import { EffectCreative } from "swiper";
-// import './Temp.css'
+import "swiper/css/pagination";
+import { Pagination, Autoplay } from "swiper";
 import Hero from './Hero';
 import Hero2 from './Hero2';
-const HeroContainer = () => {
 
+const HeroContainer = () => {
     return (
-        <section className=''>
-            {/* <Hero /> */}
+        <section>
             <Swiper
-                grabCursor={true}
-                effect={"creative"}
-                creativeEffect={{
-                    prev: {
-                        shadow: true,
-                        translate: ["-120%", 0, -500],
-                    },
-                    next: {
-                        shadow: true,
-                        translate: ["120%", 0, -500],
-                    },
-                }}
-                modules={[EffectCreative]}
-                className="mySwiper5"
-                loop={true}
+                loop={true} // Enable continuous looping
                 autoplay={{
-                    delay: 250,
-                    disableOnInteraction: false
+                    delay: 5000, // Delay between slides (in ms)
+                    disableOnInteraction: false, // Keep autoplay running even when user interacts
                 }}
+                pagination={{
+                    clickable: true, // Make dots clickable
+                    dynamicBullets: true, // Dynamic dots based on the number of slides
+                }}
+                modules={[Pagination, Autoplay]}
+                className="mySwiper"
+
+                
             >
+                {/* Slide 1 */}
                 <SwiperSlide>
                     <Hero />
                 </SwiperSlide>
+
+                {/* Slide 2 */}
                 <SwiperSlide>
                     <Hero2 />
                 </SwiperSlide>
             </Swiper>
-
         </section>
     );
 };

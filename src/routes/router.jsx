@@ -123,10 +123,7 @@ export const router = createBrowserRouter([
                 path: 'my-payments',
                 element: <StudentRoute><MyPaymentHistory /></StudentRoute>
             },
-            {
-                path: 'apply-instructor',
-                element: <StudentRoute><AsInstructor /></StudentRoute>
-            },
+           
             {
                 path: 'enrolled-class',
                 element: <StudentRoute><EnrolledClasses /></StudentRoute>

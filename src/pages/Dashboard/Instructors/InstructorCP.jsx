@@ -5,6 +5,8 @@ const InstructorCP = () => {
         <div>
             <div className='h-screen'>
                 <img className='h-full w-fit' src={bgimg} alt="" />
+
+                
             </div>
         </div>
     );
